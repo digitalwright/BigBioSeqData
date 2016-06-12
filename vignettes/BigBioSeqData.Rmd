@@ -4,7 +4,7 @@ The objective of this workflow is to detect known *Pythium* species in several s
 
 ```{r}
 # all paths are relative to the installed datasets
-setwd(system.file("extdata", package="BigBioSeqData"))
+root_dir <- system.file("extdata", package="BigBioSeqData")
 
 library(DECIPHER)
 
@@ -13,7 +13,9 @@ dbConn <- dbConnect(SQLite(),
 	"./COIgenes.sqlite") # path to new database file
 
 # Import sequences from a GenBank formatted file
-Seqs2DB("./Pythium_spp_COI.gb",
+Seqs2DB(paste(root_dir,
+		"/Pythium_spp_COI.gb",
+		sep=""),
 	type="GenBank",
 	dbFile=dbConn,
 	identifier="Pythium")
@@ -98,7 +100,9 @@ Part #2 of the workflow uses sequences of the COI gene that were obtained from s
 
 ```{r}
 # Import from the compressed FASTQ sequence files
-path <- "./FASTQ/"
+path <- paste(root_dir,
+	"/FASTQ/",
+	sep="")
 files <- list.files(path)
 samples <- substring(files,
 	first=1,
@@ -333,5 +337,6 @@ plot(tree_colored)
 
 # Disconnect from the sequence database
 dbDisconnect(dbConn)
-setwd("~") # reset the working directory
+# permanently delete the database
+unlink("./COIgenes.sqlite") # optional!
 ```
