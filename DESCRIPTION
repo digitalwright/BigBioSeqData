@@ -6,7 +6,7 @@ Date: 2016-06-11
 Author: Erik Wright
 Maintainer: Erik Wright <eswright@wisc.edu>
 Description: Resources for BioC 2016 workshop, entitled, "Managing big biological sequence data with Biostrings and DECIPHER".
-Depends: R (>= 3.3.0), DECIPHER (>= 2.1), Biostrings (>= 2.42.2), RSQLite (>= 1.0.0), stats, parallel
+Depends: R (>= 3.3.0), DECIPHER (>= 2.1), Biostrings (>= 2.41.2), RSQLite (>= 1.0.0), stats, parallel
 Imports: methods, DBI, S4Vectors, IRanges, XVector
 LinkingTo: DECIPHER, Biostrings, RSQLite, S4Vectors, IRanges, XVector
 Suggests: knitr
