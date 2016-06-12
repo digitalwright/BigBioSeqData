@@ -331,4 +331,5 @@ plot(tree_colored)
 
 # Disconnect from the sequence database
 dbDisconnect(dbConn)
+setwd("~") # reset the working directory
 ```
