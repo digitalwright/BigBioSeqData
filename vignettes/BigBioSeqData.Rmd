@@ -1,3 +1,5 @@
+%\VignetteEngine{knitr::knitr}
+
 The objective of this workflow is to detect known *Pythium* species in several samples collected from soybean fields in Pennsylvania. *Pythium* is a eukaryotic microorganism that can help or harm plants depending on the species. Many *Pythium* species cause root rot in specific plants. However, some species of *Pythium* are used as biological control agents to prevent the growth of pathogens on crops. This workflow parallels an analysis of the same datasets performed by Coffua *et al.* in the journal Plant Disease (2016).<br><br>Here the Cytochrome c oxidase subunit 1 (COI) gene is used as a phylogenetic marker to identify species. The COI gene is part of the mitochondrial genome of all eukaryotes. In part #1 of this workflow, the goal is to design optimal primers to differentiate all of the *Pythium* species using the COI gene. The first step is to download the COI gene sequences of known *Pythium* species from the Internet and import them into a sequence database, as shown below.
 
 ```{r}
