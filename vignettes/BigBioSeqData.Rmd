@@ -103,8 +103,6 @@ Part #2 of the workflow uses sequences of the COI gene that were obtained from s
 path <- paste(root_dir,
 	"/FASTQ/",
 	sep="")
-```
-```{r}
 files <- list.files(path)
 samples <- substring(files,
 	first=1,
@@ -117,8 +115,7 @@ for (i in seq_along(files)) {
 		identifier=samples[i],
 		tblName="Reads")
 }
-```
-```{r}
+
 # Function for determining boundaries
 # of the high-quality central region
 bounds <- function(probs,
@@ -140,8 +137,7 @@ bounds <- function(probs,
 	
 	return(c(w[1], w[length(w)]))
 }
-```
-```{r}
+
 # Trim the sequences by quality and identify
 # the subset belonging to the Pythium genus
 nSeqs <- SearchDB(dbConn,
@@ -153,8 +149,6 @@ ends <- starts <- counts <- integer(nSeqs)
 fprimer <- DNAString("TCAWCWMGATGGCTTTTTTCAAC")
 rprimer <- DNAString("")
 pBar <- txtProgressBar(max=nSeqs, style=3)
-```
-```{r}
 while (offset < nSeqs) {
 	# Select a batch of sequences
 	dna <- SearchDB(dbConn,
@@ -187,8 +181,7 @@ while (offset < nSeqs) {
 	setTxtProgressBar(pBar,
 		ifelse(offset > nSeqs, nSeqs, offset))
 }
-```
-```{r}
+
 # Add the results to new columns in the database
 results <- data.frame(start=starts,
 	end=ends,
@@ -200,8 +193,7 @@ Add2DB(results,
 BrowseDB(dbConn,
 	tblName="Reads",
 	limit=1000)
-```
-```{r}
+
 # Cluster the reads in each sample by percent identity
 for (i in seq_along(samples)) {
 	cat(samples[i])
@@ -238,8 +230,7 @@ for (i in seq_along(samples)) {
 		length(unique(clusters[, 1])),
 		"clusters\n")
 }
-```
-```{r}
+
 # Now the database contains a column of clusters
 BrowseDB(dbConn,
 	tblName="Reads",
