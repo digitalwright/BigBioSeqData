@@ -2,9 +2,9 @@
 
 The objective of this workflow is to detect known *Pythium* species in several samples collected from soybean fields in Pennsylvania. *Pythium* is a eukaryotic microorganism that can help or harm plants depending on the species. Many *Pythium* species cause root rot in specific plants. However, some species of *Pythium* are used as biological control agents to prevent the growth of pathogens on crops. This workflow parallels an analysis of the same datasets performed by Coffua *et al.* in the journal Plant Disease (2016).<br><br>Here the Cytochrome c oxidase subunit 1 (COI) gene is used as a phylogenetic marker to identify species. The COI gene is part of the mitochondrial genome of all eukaryotes. In part #1 of this workflow, the goal is to design optimal primers to differentiate all of the *Pythium* species using the COI gene. The first step is to download the COI gene sequences of known *Pythium* species from the Internet and import them into a sequence database, as shown below.
 
-```{r}
+```{r, results="hide"}
 # all paths are relative to the installed datasets
-root_dir <- system.file("extdata", package="BigBioSeqData")
+data_dir <- system.file("extdata", package="BigBioSeqData")
 
 library(DECIPHER)
 
@@ -13,7 +13,7 @@ dbConn <- dbConnect(SQLite(),
 	"./COIgenes.sqlite") # path to new database file
 
 # Import sequences from a GenBank formatted file
-Seqs2DB(paste(root_dir,
+Seqs2DB(paste(data_dir,
 		"/Pythium_spp_COI.gb",
 		sep=""),
 	type="GenBank",
@@ -98,9 +98,9 @@ BrowseSeqs(DNA,
 
 Part #2 of the workflow uses sequences of the COI gene that were obtained from several locations in Pennsylvania. These DNA sequences are stored in FASTQ format along with their corresponding quality scores. After importing, the first step is to trim the sequences so that only the high quality center region remains. The subset of sequences that might belong to *Pythium* species will be identified by the presence of a conserved region common all *Pythium*. This analysis will be performed in batches so that all of the sequences do not need to fit in memory simultaneously.
 
-```{r}
+```{r, results="hide"}
 # Import from the compressed FASTQ sequence files
-path <- paste(root_dir,
+path <- paste(data_dir,
 	"/FASTQ/",
 	sep="")
 files <- list.files(path)
@@ -240,7 +240,7 @@ BrowseDB(dbConn,
 
 In part #3 of the workflow, representatives from each sequence cluster are compared to known *Pythium* species. The goal of this analysis is to identify which organisms present in each sample are similar to known species. The known species are separated into two groups: those that are used as biocontrol agents (good strains) and those that are known to be plant pathogens (bad strains).
 
-```{r}
+```{r, results="hide"}
 ids <- IdentifyByRank(dbConn,
 	add2tbl=TRUE)
 lens <- IdLengths(dbConn,
